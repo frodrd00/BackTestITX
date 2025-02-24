@@ -34,7 +34,7 @@ public class ExternalSimilarProductsAdapter implements SimilarProductsAdapter {
                     new ParameterizedTypeReference<List<String>>() {}
             );
         } catch (HttpClientErrorException ex) {
-            throw new ProductNotFoundException("Product " + productId + " not found");
+            throw new ProductNotFoundException("Producto " + productId + " no encuntrado.");
         }
         List<String> similarIds = response.getBody();
         return similarIds != null ? similarIds : new ArrayList<>();

@@ -1,7 +1,7 @@
 package com.example.productApp.controllers;
 
 import com.example.productApp.facade.ProductFacade;
-import com.example.productApp.models.ProductDetail;
+import com.example.productApp.models.ProductDetailModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,12 +32,12 @@ class ProductControllerTest {
     @Test
     void testGetSimilarProductsReturnsOk() {
         String productId = "123";
-        ProductDetail productDetail1 = new ProductDetail("456", "Product B", 100.0, true);
-        ProductDetail productDetail2 = new ProductDetail("789", "Product C", 150.0, true);
+        ProductDetailModel productDetail1 = new ProductDetailModel("456", "Product B", 100.0, true);
+        ProductDetailModel productDetail2 = new ProductDetailModel("789", "Product C", 150.0, true);
 
         when(productFacade.getSimilarProducts(productId)).thenReturn(List.of(productDetail1, productDetail2));
 
-        ResponseEntity<List<ProductDetail>> response = productController.getSimilarProducts(productId);
+        ResponseEntity<List<ProductDetailModel>> response = productController.getSimilarProducts(productId);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(2, response.getBody().size());
@@ -51,7 +51,7 @@ class ProductControllerTest {
 
         when(productFacade.getSimilarProducts(productId)).thenReturn(Collections.emptyList());
 
-        ResponseEntity<List<ProductDetail>> response = productController.getSimilarProducts(productId);
+        ResponseEntity<List<ProductDetailModel>> response = productController.getSimilarProducts(productId);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals(0, response.getBody().size());

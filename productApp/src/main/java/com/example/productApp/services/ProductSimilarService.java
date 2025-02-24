@@ -2,7 +2,7 @@ package com.example.productApp.services;
 
 import com.example.productApp.adapters.ProductDetailAdapter;
 import com.example.productApp.adapters.SimilarProductsAdapter;
-import com.example.productApp.models.ProductDetail;
+import com.example.productApp.models.ProductDetailModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +22,9 @@ public class ProductSimilarService {
         this.similarProductsAdapter = similarProductsAdapter;
     }
 
-    public List<ProductDetail> getSimilarProducts(String productId) {
+    public List<ProductDetailModel> getSimilarProducts(String productId) {
         List<String> similarIds = similarProductsAdapter.fetchSimilarProductIds(productId);
-        List<ProductDetail> similarProducts = new ArrayList<>();
+        List<ProductDetailModel> similarProducts = new ArrayList<>();
         for (String id : similarIds) {
             similarProducts.add(productDetailAdapter.fetchProductDetail(id));
         }

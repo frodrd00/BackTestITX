@@ -1,7 +1,7 @@
 package com.example.productApp.controllers;
 
 import com.example.productApp.facade.ProductFacade;
-import com.example.productApp.models.ProductDetail;
+import com.example.productApp.models.ProductDetailModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}/similar")
-    public ResponseEntity<List<ProductDetail>> getSimilarProducts(@PathVariable("productId") String productId) {
-        List<ProductDetail> similarProducts = productFacade.getSimilarProducts(productId);
+    public ResponseEntity<List<ProductDetailModel>> getSimilarProducts(@PathVariable("productId") String productId) {
+        List<ProductDetailModel> similarProducts = productFacade.getSimilarProducts(productId);
         if (similarProducts.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(similarProducts);
         }

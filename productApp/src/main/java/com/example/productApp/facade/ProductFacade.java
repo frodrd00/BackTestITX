@@ -1,6 +1,6 @@
 package com.example.productApp.facade;
 
-import com.example.productApp.models.ProductDetail;
+import com.example.productApp.models.ProductDetailModel;
 import com.example.productApp.services.ProductSimilarService;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class ProductFacade {
         this .productSimilarService = productSimilarService;
     }
 
-    public List<ProductDetail> getSimilarProducts(String productId) {
+    public List<ProductDetailModel> getSimilarProducts(String productId) {
         return productSimilarService.getSimilarProducts(productId);
     }
 }

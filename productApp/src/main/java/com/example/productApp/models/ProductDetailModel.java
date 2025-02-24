@@ -1,14 +1,14 @@
 package com.example.productApp.models;
 
-public class ProductDetail {
+public class ProductDetailModel {
     private String id;
     private String name;
     private double price;
     private boolean availability;
 
-    public ProductDetail() {}
+    public ProductDetailModel() {}
 
-    public ProductDetail(String id, String name, double price, boolean availability) {
+    public ProductDetailModel(String id, String name, double price, boolean availability) {
         this.id = id;
         this.name = name;
         this.price = price;

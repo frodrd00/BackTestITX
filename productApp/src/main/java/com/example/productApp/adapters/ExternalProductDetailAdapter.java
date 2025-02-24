@@ -1,7 +1,7 @@
 package com.example.productApp.adapters;
 
 import com.example.productApp.exceptions.ProductNotFoundException;
-import com.example.productApp.models.ProductDetail;
+import com.example.productApp.models.ProductDetailModel;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -19,12 +19,12 @@ public class ExternalProductDetailAdapter implements ProductDetailAdapter {
     private final String BASE_URL = "http://localhost:3001";
 
     @Override
-    public ProductDetail fetchProductDetail(String productId) {
+    public ProductDetailModel fetchProductDetail(String productId) {
         String url = BASE_URL + "/product/" + productId;
         try {
-            return restTemplate.getForObject(url, ProductDetail.class);
+            return restTemplate.getForObject(url, ProductDetailModel.class);
         } catch (HttpClientErrorException.NotFound ex) {
-            throw new ProductNotFoundException("Product " + productId + " not found");
+            throw new ProductNotFoundException("Detalle del producto" + productId + " no encontrado.");
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.productApp.adapters;
-import com.example.productApp.models.ProductDetail;
+import com.example.productApp.models.ProductDetailModel;
 
 public interface ProductDetailAdapter {
-    ProductDetail fetchProductDetail(String productId);
+    ProductDetailModel fetchProductDetail(String productId);
 }
