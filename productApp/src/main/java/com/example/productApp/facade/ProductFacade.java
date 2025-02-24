@@ -2,7 +2,6 @@ package com.example.productApp.facade;
 
 import com.example.productApp.models.ProductDetail;
 import com.example.productApp.services.ProductSimilarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,7 +11,6 @@ public class ProductFacade {
 
     private final ProductSimilarService productSimilarService;
 
-    @Autowired
     public ProductFacade(ProductSimilarService productSimilarService) {
         this .productSimilarService = productSimilarService;
     }

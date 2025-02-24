@@ -1,7 +1,6 @@
 package com.example.productApp.adapters;
 
 import com.example.productApp.exceptions.ProductNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

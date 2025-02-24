@@ -3,12 +3,12 @@ package com.example.productApp.controllers;
 import com.example.productApp.facade.ProductFacade;
 import com.example.productApp.models.ProductDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
@@ -25,6 +25,10 @@ public class ProductController {
     @GetMapping("/{productId}/similar")
     public ResponseEntity<List<ProductDetail>> getSimilarProducts(@PathVariable("productId") String productId) {
         List<ProductDetail> similarProducts = productFacade.getSimilarProducts(productId);
+        if (similarProducts.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(similarProducts);
+        }
         return ResponseEntity.ok(similarProducts);
     }
 }
+
