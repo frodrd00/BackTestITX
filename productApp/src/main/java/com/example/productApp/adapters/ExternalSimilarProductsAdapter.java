@@ -1,6 +1,10 @@
 package com.example.productApp.adapters;
 
 import com.example.productApp.exceptions.ProductNotFoundException;
+import jakarta.servlet.MultipartConfigElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +19,13 @@ import java.util.List;
 public class ExternalSimilarProductsAdapter implements SimilarProductsAdapter {
 
     private final RestTemplate restTemplate;
+    private final String BASE_URL;
+    Logger logger = LoggerFactory.getLogger(ExternalSimilarProductsAdapter.class);
 
-    public ExternalSimilarProductsAdapter(RestTemplate restTemplate) {
+    public ExternalSimilarProductsAdapter(RestTemplate restTemplate, @Value("${external.api.base-url}") String baseUrl) {
         this.restTemplate = restTemplate;
+        this.BASE_URL = baseUrl;
     }
-
-    private final String BASE_URL = "http://localhost:3001";
 
     @Override
     public List<String> fetchSimilarProductIds(String productId) {
@@ -31,12 +36,17 @@ public class ExternalSimilarProductsAdapter implements SimilarProductsAdapter {
                     url,
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<List<String>>() {}
+                    new ParameterizedTypeReference<>() {}
             );
         } catch (HttpClientErrorException ex) {
-            throw new ProductNotFoundException("Producto " + productId + " no encuntrado.");
+            logger.error("[APP] Error al obtener productos similares al id de producto {}", productId);
+            throw new ProductNotFoundException("Producto " + productId + " no encontrado.");
         }
         List<String> similarIds = response.getBody();
-        return similarIds != null ? similarIds : new ArrayList<>();
+        if(similarIds !=null) {
+            logger.info("[APP] Encontrado {} productos similares para el id de producto {}", similarIds.size(), productId);
+            return similarIds;
+        }
+        return new ArrayList<>();
     }
 }
